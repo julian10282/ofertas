@@ -13,8 +13,6 @@ public class ProductEntity {
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "price")
-    private String price;
     @Column(name = "catalogCod")
     private int catalogCod;
 
@@ -22,11 +20,10 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(int code, String name, String description, String price, int catalogCod) {
+    public ProductEntity(int code, String name, String description, int catalogCod) {
         this.code = code;
         this.name = name;
         this.description = description;
-        this.price = price;
         this.catalogCod = catalogCod;
     }
 
@@ -53,14 +50,6 @@ public class ProductEntity {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public int getCatalogCod() {
