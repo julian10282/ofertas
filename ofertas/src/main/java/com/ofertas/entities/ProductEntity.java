@@ -52,6 +52,7 @@ public class ProductEntity {
         this.description = description;
     }
 
+
     public int getCatalogCod() {
         return catalogCod;
     }
