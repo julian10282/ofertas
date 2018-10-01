@@ -1,6 +1,7 @@
 package com.ofertas.controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ public class ClientController {
 	private ClientService clientService;
 	
 	
-	@PostMapping(path="/create")
+	@PostMapping("/create")
 	public ResponseEntity<ClientEntity> createCient(@RequestBody ClientEntity clientEntity) {
 		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		
