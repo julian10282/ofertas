@@ -12,6 +12,6 @@ import com.ofertas.services.SupplierService;
 public class SupplierController {
 
 	@Autowired
-	@Qualifier("catalogService")
+	@Qualifier("supplierService")
 	private SupplierService supplierService;
 }

@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 @Repository("clientRepository")
 public interface ClientRepository extends JpaRepository<ClientEntity, Serializable> {
+	
+	public ClientEntity findByDocument(int document);
 }

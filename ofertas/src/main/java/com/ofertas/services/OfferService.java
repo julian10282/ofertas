@@ -10,7 +10,7 @@ import com.ofertas.repository.OffertRepository;
 public class OfferService {
 	
 	@Autowired
-	@Qualifier("offertRepository")
+	@Qualifier("offerRepository")
 	private OffertRepository offertRepository;
 
 }
