@@ -2,18 +2,18 @@ package com.ofertas.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ofertas.entities.ClientEntity;
-import com.ofertas.enumerator.ResponseEnum;
-import com.ofertas.model.Response;
 import com.ofertas.services.ClientService;
 
-@Controller
+@RestController
 @RequestMapping("/client")
 public class ClientController {
 	
@@ -23,15 +23,13 @@ public class ClientController {
 	
 	
 	@PostMapping(path="/create", produces = { MediaType.APPLICATION_JSON_VALUE })
-	public Response createCient(@RequestBody ClientEntity clientEntity) {
-		Response response = new Response(ResponseEnum.INTERNAL_ERROR);
+	public ResponseEntity<ClientEntity> createCient(@RequestBody ClientEntity clientEntity) {
+		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		
 		ClientEntity clientEntity2 = clientService.createClient(clientEntity);
 		if (clientEntity2 != null) {
-			response = new Response(ResponseEnum.SUCCESS);
-			response.setBody(clientEntity2);
-			return response;
+			responseEntity = new ResponseEntity<>(clientEntity2, HttpStatus.OK);
 		}
-		return response;
+		return responseEntity;
 	}
-
 }
