@@ -22,7 +22,7 @@ public class ClientController {
 	private ClientService clientService;
 	
 	
-	@PostMapping(path="/create", produces = { MediaType.APPLICATION_JSON_VALUE })
+	@PostMapping(path="/create")
 	public ResponseEntity<ClientEntity> createCient(@RequestBody ClientEntity clientEntity) {
 		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		
