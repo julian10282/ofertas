@@ -25,7 +25,7 @@ public class ClientController {
 	
 	
 	@PostMapping("/create")
-	public ResponseEntity<ClientEntity> createCient(@RequestBody ClientEntity clientEntity) {
+	public ResponseEntity<ClientEntity> create(@RequestBody ClientEntity clientEntity) {
 		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		ClientEntity clientEntity2 = clientService.createClient(clientEntity);
@@ -46,7 +46,7 @@ public class ClientController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<ClientEntity> updateClient(@RequestBody ClientEntity clientEntity) {
+	public ResponseEntity<ClientEntity> update(@RequestBody ClientEntity clientEntity) {
 		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 		ClientEntity clientEntity2 = clientService.updateClient(clientEntity);
@@ -58,7 +58,7 @@ public class ClientController {
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<ClientEntity>> findAllClients() {
+	public ResponseEntity<List<ClientEntity>> findAll() {
 		ResponseEntity<List<ClientEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 		List<ClientEntity> clientEntity = clientService.findAllClients();

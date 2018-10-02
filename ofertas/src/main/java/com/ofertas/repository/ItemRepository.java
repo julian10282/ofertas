@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 @Repository("itemRepository")
 public interface ItemRepository extends JpaRepository<ItemEntity, Serializable> {
+	
+	public ItemEntity findById(int id);
 }
