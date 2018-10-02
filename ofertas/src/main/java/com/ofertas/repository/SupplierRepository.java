@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 @Repository("supplierRepository")
 public interface SupplierRepository extends JpaRepository<SupplierEntity, Serializable> {
+	
+	public SupplierEntity findByDocument(int document);
 }

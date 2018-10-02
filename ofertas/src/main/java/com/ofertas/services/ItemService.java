@@ -21,7 +21,7 @@ public class ItemService {
 		return itemRepository.save(itemEntity);
 	}
 	
-	public boolean remove (int code) {
+	public boolean removeItem (int code) {
 		ItemEntity itemEntity = itemRepository.findById(code);
 		if (itemEntity != null) {
 			itemRepository.delete(itemEntity);
@@ -39,7 +39,7 @@ public class ItemService {
 		return null;
 	}
 	
-	public List<ItemEntity> findAllCatalogs () {
+	public List<ItemEntity> findAllItems () {
 		return itemRepository.findAll();
 	}
 

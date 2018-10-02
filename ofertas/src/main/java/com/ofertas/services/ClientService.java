@@ -23,7 +23,7 @@ public class ClientService {
 		return clientRepository.save(clientEntity);
 	}
 	
-	public boolean remove (int document) {
+	public boolean removeClient (int document) {
 		ClientEntity clientEntity = clientRepository.findByDocument(document);
 		if (clientEntity != null) {
 			clientRepository.delete(clientEntity);

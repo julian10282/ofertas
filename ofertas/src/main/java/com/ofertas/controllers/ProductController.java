@@ -38,7 +38,7 @@ public class ProductController {
 	public ResponseEntity<ProductEntity> remove(@RequestBody ProductEntity productEntity) {
 		ResponseEntity<ProductEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		if (productService.remove(productEntity.getCode())) {
+		if (productService.removeProduct(productEntity.getCode())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		}
 		return responseEntity;
@@ -60,7 +60,7 @@ public class ProductController {
 	public ResponseEntity<List<ProductEntity>> findAll() {
 		ResponseEntity<List<ProductEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		List<ProductEntity> productEntities = productService.findAllCatalogs();
+		List<ProductEntity> productEntities = productService.findAllProducts();
 		if (productEntities != null) {
 			responseEntity = new ResponseEntity<>(productEntities, HttpStatus.OK);
 		}

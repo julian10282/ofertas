@@ -38,7 +38,7 @@ public class ItemController {
 	public ResponseEntity<ItemEntity> remove(@RequestBody ItemEntity itemEntity) {
 		ResponseEntity<ItemEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		if (itemService.remove(itemEntity.getId())) {
+		if (itemService.removeItem(itemEntity.getId())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		}
 		return responseEntity;
@@ -60,7 +60,7 @@ public class ItemController {
 	public ResponseEntity<List<ItemEntity>> findAll() {
 		ResponseEntity<List<ItemEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		List<ItemEntity> itemEntities = itemService.findAllCatalogs();
+		List<ItemEntity> itemEntities = itemService.findAllItems();
 		if (itemEntities != null) {
 			responseEntity = new ResponseEntity<>(itemEntities, HttpStatus.OK);
 		}

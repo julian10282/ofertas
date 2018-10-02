@@ -21,7 +21,7 @@ public class ProductService {
 		return productRepository.save(productEntity);
 	}
 	
-	public boolean remove (int code) {
+	public boolean removeProduct (int code) {
 		ProductEntity productEntity = productRepository.findByCode(code);
 		if (productEntity != null) {
 			productRepository.delete(productEntity);
@@ -39,7 +39,7 @@ public class ProductService {
 		return null;
 	}
 	
-	public List<ProductEntity> findAllCatalogs () {
+	public List<ProductEntity> findAllProducts () {
 		return productRepository.findAll();
 	}
 }

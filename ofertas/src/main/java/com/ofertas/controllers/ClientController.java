@@ -39,7 +39,7 @@ public class ClientController {
 	public ResponseEntity<ClientEntity> remove(@RequestBody ClientEntity clientEntity) {
 		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		if (clientService.remove(clientEntity.getDocument())) {
+		if (clientService.removeClient(clientEntity.getDocument())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		}
 		return responseEntity;
@@ -61,9 +61,9 @@ public class ClientController {
 	public ResponseEntity<List<ClientEntity>> findAll() {
 		ResponseEntity<List<ClientEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		List<ClientEntity> clientEntity = clientService.findAllClients();
-		if (clientEntity != null) {
-			responseEntity = new ResponseEntity<>(clientEntity, HttpStatus.OK);
+		List<ClientEntity> clientEntities = clientService.findAllClients();
+		if (clientEntities != null) {
+			responseEntity = new ResponseEntity<>(clientEntities, HttpStatus.OK);
 		}
 		return responseEntity;
 	}

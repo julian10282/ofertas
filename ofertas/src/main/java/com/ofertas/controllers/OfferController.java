@@ -38,7 +38,7 @@ public class OfferController {
 	public ResponseEntity<OfferEntity> remove(@RequestBody OfferEntity offerEntity) {
 		ResponseEntity<OfferEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		if (offerService.remove(offerEntity.getId())) {
+		if (offerService.removeOffer(offerEntity.getId())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		}
 		return responseEntity;
@@ -60,7 +60,7 @@ public class OfferController {
 	public ResponseEntity<List<OfferEntity>> findAll() {
 		ResponseEntity<List<OfferEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		List<OfferEntity> offerEntities = offerService.findAllCatalogs();
+		List<OfferEntity> offerEntities = offerService.findAllOffers();
 		if (offerEntities != null) {
 			responseEntity = new ResponseEntity<>(offerEntities, HttpStatus.OK);
 		}

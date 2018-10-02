@@ -21,7 +21,7 @@ public class OfferService {
 		return offertRepository.save(offerEntity);
 	}
 	
-	public boolean remove (int id) {
+	public boolean removeOffer (int id) {
 		OfferEntity offerEntity = offertRepository.findById(id);
 		if (offerEntity != null) {
 			offertRepository.delete(offerEntity);
@@ -39,7 +39,7 @@ public class OfferService {
 		return null;
 	}
 	
-	public List<OfferEntity> findAllCatalogs () {
+	public List<OfferEntity> findAllOffers () {
 		return offertRepository.findAll();
 	}
 }

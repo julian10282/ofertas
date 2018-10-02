@@ -21,7 +21,7 @@ public class CatalogService {
 		return catalogRepository.save(catalogEntity);
 	}
 	
-	public boolean remove (int code) {
+	public boolean removeCatalog (int code) {
 		CatalogEntity catalogEntity = catalogRepository.findByCode(code);
 		if (catalogEntity != null) {
 			catalogRepository.delete(catalogEntity);

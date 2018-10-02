@@ -38,7 +38,7 @@ public class CatalogController {
 	public ResponseEntity<CatalogEntity> remove(@RequestBody CatalogEntity catalogEntity) {
 		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
-		if (catalogService.remove(catalogEntity.getCode())) {
+		if (catalogService.removeCatalog(catalogEntity.getCode())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
 		}
 		return responseEntity;
