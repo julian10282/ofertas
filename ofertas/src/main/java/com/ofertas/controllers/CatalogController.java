@@ -2,6 +2,8 @@ package com.ofertas.controllers;
 
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,25 +20,25 @@ import com.ofertas.services.CatalogService;
 @RestController
 @RequestMapping("/catalog")
 public class CatalogController {
+
+	private static final Log LOG = LogFactory.getLog(CatalogController.class);
 	
 	@Autowired
 	@Qualifier("catalogService")
 	private CatalogService catalogService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<CatalogEntity> create(@RequestBody CatalogEntity catalogEntity) {
-		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		CatalogEntity catalogEntity2 = catalogService.createCatalog(catalogEntity);
-		if (catalogEntity2 != null) {
-			responseEntity = new ResponseEntity<>(catalogEntity2, HttpStatus.OK);
+	public ResponseEntity<Object> create(@RequestBody CatalogEntity catalogEntity) {
+		ResponseEntity<Object> responseEntity  = catalogService.createCatalog(catalogEntity);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
 	public ResponseEntity<CatalogEntity> remove(@RequestBody CatalogEntity catalogEntity) {
-		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (catalogService.removeCatalog(catalogEntity.getCode())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -45,24 +47,22 @@ public class CatalogController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<CatalogEntity> update(@RequestBody CatalogEntity catalogEntity) {
-		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody CatalogEntity catalogEntity) {
+		ResponseEntity<Object> responseEntity = catalogService.updateCatalog(catalogEntity);
 		
-		CatalogEntity catalogEntity2 = catalogService.updateCatalog(catalogEntity);
-		
-		if (catalogEntity2 != null) {
-			responseEntity = new ResponseEntity<>(catalogEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<CatalogEntity>> findAll() {
-		ResponseEntity<List<CatalogEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = catalogService.findAllCatalogs();
 		
-		List<CatalogEntity> catalogEntities = catalogService.findAllCatalogs();
-		if (catalogEntities != null) {
-			responseEntity = new ResponseEntity<>(catalogEntities, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			LOG.info("Response " + responseEntity.getBody());
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}

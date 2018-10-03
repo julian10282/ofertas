@@ -95,27 +95,27 @@ public class Communications {
 		return urlString;
 	}
 	
-	public static void main(String[] args) {
-		Communications communications = new Communications();
-		Map<String, String> uriparams = new HashMap<>();
-		uriparams.put("test", "test1");
-		
-		Map<String, String> queyparams = new HashMap<>();
-		queyparams.put("test", "test1");	
-		
-		String teString = communications.addParamsByMethod("http://localhost:5008/transaction/{test}", uriparams, null);
-		System.out.println(teString);
-		String teString1 = communications.addParamsByMethod("http://localhost:5008/transaction", null, queyparams);
-		System.out.println(teString1);
-		
-		String urlBase = "http://181.49.114.18:8080/bonita/loginservice";
-		
-		Map<String, String> parametros = new HashMap<>();
-		parametros.put("redirect", "false");
-		parametros.put("username", "install");
-		parametros.put("password", "install");
-		
-		communications.sendRequest(RequestMethod.GET, urlBase, null, parametros, null, null);
-	}
+//	public static void main(String[] args) {
+//		Communications communications = new Communications();
+//		Map<String, String> uriparams = new HashMap<>();
+//		uriparams.put("test", "test1");
+//		
+//		Map<String, String> queyparams = new HashMap<>();
+//		queyparams.put("test", "test1");	
+//		
+//		String teString = communications.addParamsByMethod("http://localhost:5008/transaction/{test}", uriparams, null);
+//		System.out.println(teString);
+//		String teString1 = communications.addParamsByMethod("http://localhost:5008/transaction", null, queyparams);
+//		System.out.println(teString1);
+//		
+//		String urlBase = "http://181.49.114.18:8080/bonita/loginservice";
+//		
+//		Map<String, String> parametros = new HashMap<>();
+//		parametros.put("redirect", "false");
+//		parametros.put("username", "install");
+//		parametros.put("password", "install");
+//		
+//		communications.sendRequest(RequestMethod.GET, urlBase, null, parametros, null, null);
+//	}
 
 }
