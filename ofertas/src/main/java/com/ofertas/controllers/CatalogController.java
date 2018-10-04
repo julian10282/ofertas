@@ -1,9 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -21,8 +17,6 @@ import com.ofertas.services.CatalogService;
 @RequestMapping("/catalog")
 public class CatalogController {
 
-	private static final Log LOG = LogFactory.getLog(CatalogController.class);
-	
 	@Autowired
 	@Qualifier("catalogService")
 	private CatalogService catalogService;
@@ -61,7 +55,6 @@ public class CatalogController {
 		ResponseEntity<Object> responseEntity = catalogService.findAllCatalogs();
 		
 		if (responseEntity.hasBody()) {
-			LOG.info("Response " + responseEntity.getBody());
 			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;

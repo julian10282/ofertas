@@ -16,14 +16,11 @@ import com.ofertas.repository.CatalogRepository;
 @Service("catalogService")
 public class CatalogService {
 	
-	private static final Log LOG = LogFactory.getLog(CatalogService.class);
-	
 	@Autowired
 	@Qualifier("catalogRepository")
 	private CatalogRepository catalogRepository;
 	
 	public ResponseEntity<Object> createCatalog (CatalogEntity catalogEntity) {
-		
 		try {
 			catalogEntity.setCode(0);
 			CatalogEntity catalogEntity2 = catalogRepository.save(catalogEntity);
@@ -33,7 +30,6 @@ public class CatalogService {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 	}
 	
 	public boolean removeCatalog (int code) {
@@ -51,7 +47,6 @@ public class CatalogService {
 	}
 	
 	public ResponseEntity<Object> updateCatalog (CatalogEntity catalogEntity) {
-		
 		try {
 			CatalogEntity catalogEntity2 = catalogRepository.findByCode(catalogEntity.getCode());
 			
@@ -63,7 +58,6 @@ public class CatalogService {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 	}
 	
 	public ResponseEntity<Object> findAllCatalogs () {
