@@ -31,8 +31,8 @@ public class CatalogController {
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<CatalogEntity> remove(@RequestBody CatalogEntity catalogEntity) {
-		ResponseEntity<CatalogEntity> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+	public ResponseEntity<Object> remove(@RequestBody CatalogEntity catalogEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (catalogService.removeCatalog(catalogEntity.getCode())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);

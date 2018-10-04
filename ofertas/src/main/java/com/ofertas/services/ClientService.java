@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ofertas.entities.CatalogEntity;
 import com.ofertas.entities.ClientEntity;
 import com.ofertas.repository.ClientRepository;
 

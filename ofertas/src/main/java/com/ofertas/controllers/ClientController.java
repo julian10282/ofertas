@@ -1,7 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -25,19 +23,17 @@ public class ClientController {
 	
 	
 	@PostMapping("/create")
-	public ResponseEntity<ClientEntity> create(@RequestBody ClientEntity clientEntity) {
-		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		ClientEntity clientEntity2 = clientService.createClient(clientEntity);
-		if (clientEntity2 != null) {
-			responseEntity = new ResponseEntity<>(clientEntity2, HttpStatus.OK);
+	public ResponseEntity<Object> create(@RequestBody ClientEntity clientEntity) {
+		ResponseEntity<Object> responseEntity  = clientService.createClient(clientEntity);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<ClientEntity> remove(@RequestBody ClientEntity clientEntity) {
-		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> remove(@RequestBody ClientEntity clientEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (clientService.removeClient(clientEntity.getDocument())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -46,24 +42,21 @@ public class ClientController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<ClientEntity> update(@RequestBody ClientEntity clientEntity) {
-		ResponseEntity<ClientEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody ClientEntity clientEntity) {
+		ResponseEntity<Object> responseEntity = clientService.updateClient(clientEntity);
 		
-		ClientEntity clientEntity2 = clientService.updateClient(clientEntity);
-		
-		if (clientEntity2 != null) {
-			responseEntity = new ResponseEntity<>(clientEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<ClientEntity>> findAll() {
-		ResponseEntity<List<ClientEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		
-		List<ClientEntity> clientEntities = clientService.findAllClients();
-		if (clientEntities != null) {
-			responseEntity = new ResponseEntity<>(clientEntities, HttpStatus.OK);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = clientService.findAllClients();
+
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}

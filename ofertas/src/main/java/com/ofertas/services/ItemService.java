@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ofertas.entities.ItemEntity;
@@ -16,31 +18,53 @@ public class ItemService {
 	@Qualifier("itemRepository")
 	private ItemRepository itemRepository;
 	
-	public ItemEntity createItem (ItemEntity itemEntity) {
-		itemEntity.setId(0);
-		return itemRepository.save(itemEntity);
+	public ResponseEntity<Object> createItem (ItemEntity itemEntity) {
+		try {
+			itemEntity.setId(0);
+			ItemEntity itemEntity2 = itemRepository.save(itemEntity);
+
+			return new ResponseEntity<>(itemEntity2, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	public boolean removeItem (int code) {
-		ItemEntity itemEntity = itemRepository.findById(code);
-		if (itemEntity != null) {
-			itemRepository.delete(itemEntity);
-			return true;
+		try {
+			ItemEntity itemEntity = itemRepository.findById(code);
+			if (itemEntity != null) {
+				itemRepository.delete(itemEntity);
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
 		}
-		return false;
 	}
 	
-	public ItemEntity updateItem (ItemEntity itemEntity) {
-		ItemEntity itemEntity2 = itemRepository.findById(itemEntity.getId());
+	public ResponseEntity<Object> updateItem (ItemEntity itemEntity) {
+		try {
+			ItemEntity itemEntity2 = itemRepository.findById(itemEntity.getId());
+			
+			if (itemEntity2 !=null) {
+				ItemEntity itemEntity3 = itemRepository.save(itemEntity);
+				return new ResponseEntity<>(itemEntity3, HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	public ResponseEntity<Object> findAllItems () {
 		
-		if (itemEntity2 !=null) {
-			return itemRepository.save(itemEntity);
+		try {
+			List<ItemEntity> itemEntities = itemRepository.findAll();
+			return new ResponseEntity<>(itemEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
-	}
-	
-	public List<ItemEntity> findAllItems () {
-		return itemRepository.findAll();
 	}
 
 }

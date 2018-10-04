@@ -1,7 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -24,19 +22,17 @@ public class ItemController {
 	private ItemService itemService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<ItemEntity> create(@RequestBody ItemEntity itemEntity) {
-		ResponseEntity<ItemEntity> responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		ItemEntity itemEntity2 = itemService.createItem(itemEntity);
-		if (itemEntity2 != null) {
-			responseEntity = new ResponseEntity<>(itemEntity2, HttpStatus.OK);
+	public ResponseEntity<Object> create(@RequestBody ItemEntity itemEntity) {
+		ResponseEntity<Object> responseEntity = itemService.createItem(itemEntity);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<ItemEntity> remove(@RequestBody ItemEntity itemEntity) {
-		ResponseEntity<ItemEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> remove(@RequestBody ItemEntity itemEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (itemService.removeItem(itemEntity.getId())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -45,24 +41,21 @@ public class ItemController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<ItemEntity> update(@RequestBody ItemEntity itemEntity) {
-		ResponseEntity<ItemEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody ItemEntity itemEntity) {
+		ResponseEntity<Object> responseEntity = itemService.updateItem(itemEntity);
 		
-		ItemEntity itemEntity2 = itemService.updateItem(itemEntity);
-		
-		if (itemEntity2 != null) {
-			responseEntity = new ResponseEntity<>(itemEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<ItemEntity>> findAll() {
-		ResponseEntity<List<ItemEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = itemService.findAllItems();
 		
-		List<ItemEntity> itemEntities = itemService.findAllItems();
-		if (itemEntities != null) {
-			responseEntity = new ResponseEntity<>(itemEntities, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
