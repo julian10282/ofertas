@@ -1,7 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -24,19 +22,18 @@ public class SupplierController {
 	private SupplierService supplierService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<SupplierEntity> create(@RequestBody SupplierEntity supplierEntity) {
-		ResponseEntity<SupplierEntity> responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	public ResponseEntity<Object> create(@RequestBody SupplierEntity supplierEntity) {
+		ResponseEntity<Object> responseEntity = supplierService.createSupplier(supplierEntity);
 		
-		SupplierEntity supplierEntity2 = supplierService.createSupplier(supplierEntity);
-		if (supplierEntity2 != null) {
-			responseEntity = new ResponseEntity<>(supplierEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<SupplierEntity> remove(@RequestBody SupplierEntity supplierEntity) {
-		ResponseEntity<SupplierEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> remove(@RequestBody SupplierEntity supplierEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (supplierService.removeSupplier(supplierEntity.getDocument())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -45,24 +42,20 @@ public class SupplierController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<SupplierEntity> update(@RequestBody SupplierEntity supplierEntity) {
-		ResponseEntity<SupplierEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody SupplierEntity supplierEntity) {
+		ResponseEntity<Object> responseEntity = supplierService.updateSupplier(supplierEntity);
 		
-		SupplierEntity supplierEntity2 = supplierService.updateSupplier(supplierEntity);
-		
-		if (supplierEntity2 != null) {
-			responseEntity = new ResponseEntity<>(supplierEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<SupplierEntity>> findAll() {
-		ResponseEntity<List<SupplierEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		
-		List<SupplierEntity> supplierEntities = supplierService.findAllSuppliers();
-		if (supplierEntities != null) {
-			responseEntity = new ResponseEntity<>(supplierEntities, HttpStatus.OK);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = supplierService.findAllSuppliers();
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}

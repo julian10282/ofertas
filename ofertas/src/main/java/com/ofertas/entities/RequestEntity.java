@@ -1,5 +1,6 @@
 package com.ofertas.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -20,14 +21,22 @@ public class RequestEntity {
 
 	@Column(name = "clientdocument")
 	private int clientDocument;
+	
+	@Column(name = "startdate")
+	private Date startDate;
+	
+	@Column(name = "finaldate")
+	private Date finalDate;
 
 	@Transient
 	private List<ItemEntity> itemEntities;
 
-	public RequestEntity(int id, int clientDocument, List<ItemEntity> itemEntities) {
+	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
 		this.clientDocument = clientDocument;
+		this.startDate = startDate;
+		this.finalDate = finalDate;
 		this.itemEntities = itemEntities;
 	}
 
@@ -50,6 +59,22 @@ public class RequestEntity {
 		this.clientDocument = clientDocument;
 	}
 
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getFinalDate() {
+		return finalDate;
+	}
+
+	public void setFinalDate(Date finalDate) {
+		this.finalDate = finalDate;
+	}
+
 	public List<ItemEntity> getItemEntities() {
 		return itemEntities;
 	}
@@ -60,8 +85,8 @@ public class RequestEntity {
 
 	@Override
 	public String toString() {
-		return "RequestEntity [id=" + id + ", clientDocument=" + clientDocument + ", itemEntities=" + itemEntities
-				+ "]";
+		return "RequestEntity [id=" + id + ", clientDocument=" + clientDocument + ", startDate=" + startDate
+				+ ", finalDate=" + finalDate + ", itemEntities=" + itemEntities + "]";
 	}
 
 }

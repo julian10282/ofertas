@@ -1,7 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -24,19 +22,17 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping("/create")
-	public ResponseEntity<ProductEntity> create(@RequestBody ProductEntity productEntity) {
-		ResponseEntity<ProductEntity> responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		ProductEntity productEntity2 = productService.createProduct(productEntity);
-		if (productEntity2 != null) {
-			responseEntity = new ResponseEntity<>(productEntity2, HttpStatus.OK);
+	public ResponseEntity<Object> create(@RequestBody ProductEntity productEntity) {
+		ResponseEntity<Object> responseEntity = productService.createProduct(productEntity);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<ProductEntity> remove(@RequestBody ProductEntity productEntity) {
-		ResponseEntity<ProductEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> remove(@RequestBody ProductEntity productEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (productService.removeProduct(productEntity.getCode())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -45,24 +41,21 @@ public class ProductController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<ProductEntity> update(@RequestBody ProductEntity productEntity) {
-		ResponseEntity<ProductEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody ProductEntity productEntity) {
+		ResponseEntity<Object> responseEntity = productService.updateProduct(productEntity);
 		
-		ProductEntity productEntity2 = productService.updateProduct(productEntity);
-		
-		if (productEntity2 != null) {
-			responseEntity = new ResponseEntity<>(productEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<ProductEntity>> findAll() {
-		ResponseEntity<List<ProductEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		
-		List<ProductEntity> productEntities = productService.findAllProducts();
-		if (productEntities != null) {
-			responseEntity = new ResponseEntity<>(productEntities, HttpStatus.OK);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = productService.findAllProducts();
+
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}

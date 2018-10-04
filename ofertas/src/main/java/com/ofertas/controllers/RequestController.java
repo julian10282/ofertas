@@ -1,7 +1,5 @@
 package com.ofertas.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -24,19 +22,17 @@ public class RequestController {
 	private RequestService requestService;
 	
 	@PostMapping("/create")
-	public ResponseEntity<RequestEntity> create(@RequestBody RequestEntity requestEntity) {
-		ResponseEntity<RequestEntity> responseEntity = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
-		RequestEntity requestEntity2 = requestService.createRequest(requestEntity);
-		if (requestEntity2 != null) {
-			responseEntity = new ResponseEntity<>(requestEntity2, HttpStatus.OK);
+	public ResponseEntity<Object> create(@RequestBody RequestEntity requestEntity) {
+		ResponseEntity<Object> responseEntity = requestService.createRequest(requestEntity);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@PostMapping("/remove")
-	public ResponseEntity<RequestEntity> remove(@RequestBody RequestEntity requestEntity) {
-		ResponseEntity<RequestEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> remove(@RequestBody RequestEntity requestEntity) {
+		ResponseEntity<Object> responseEntity = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
 		
 		if (requestService.removeRequest(requestEntity.getId())) {
 			responseEntity = new ResponseEntity<>(HttpStatus.OK);
@@ -45,24 +41,21 @@ public class RequestController {
 	}
 	
 	@PostMapping("/update")
-	public ResponseEntity<RequestEntity> update(@RequestBody RequestEntity requestEntity) {
-		ResponseEntity<RequestEntity> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> update(@RequestBody RequestEntity requestEntity) {
+		ResponseEntity<Object> responseEntity = requestService.updateRequest(requestEntity);
 		
-		RequestEntity requestEntity2 = requestService.updateRequest(requestEntity);
-		
-		if (requestEntity2 != null) {
-			responseEntity = new ResponseEntity<>(requestEntity2, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}
 	
 	@GetMapping("/findAll")
-	public ResponseEntity<List<RequestEntity>> findAll() {
-		ResponseEntity<List<RequestEntity>> responseEntity = new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	public ResponseEntity<Object> findAll() {
+		ResponseEntity<Object> responseEntity = requestService.findAllRequest();
 		
-		List<RequestEntity> requestEntities = requestService.findAllRequest();
-		if (requestEntities != null) {
-			responseEntity = new ResponseEntity<>(requestEntities, HttpStatus.OK);
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
 		return responseEntity;
 	}

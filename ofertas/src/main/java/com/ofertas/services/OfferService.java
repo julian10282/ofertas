@@ -28,7 +28,6 @@ public class OfferService {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
 	}
 	
 	public boolean removeOffer (int id) {

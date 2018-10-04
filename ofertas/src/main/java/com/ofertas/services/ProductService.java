@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ofertas.entities.ProductEntity;
@@ -16,30 +18,52 @@ public class ProductService {
 	@Qualifier("productRepository")
 	private ProductRepository productRepository;
 	
-	public ProductEntity createProduct (ProductEntity productEntity) {
-		productEntity.setCode(0);
-		return productRepository.save(productEntity);
+	public ResponseEntity<Object> createProduct (ProductEntity productEntity) {
+		try {
+			productEntity.setCode(0);
+			ProductEntity productEntity2 = productRepository.save(productEntity);
+
+			return new ResponseEntity<>(productEntity2, HttpStatus.OK);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	public boolean removeProduct (int code) {
-		ProductEntity productEntity = productRepository.findByCode(code);
-		if (productEntity != null) {
-			productRepository.delete(productEntity);
-			return true;
+		try {
+			ProductEntity productEntity = productRepository.findByCode(code);
+			if (productEntity != null) {
+				productRepository.delete(productEntity);
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
 		}
-		return false;
 	}
 	
-	public ProductEntity updateProduct (ProductEntity productEntity) {
-		ProductEntity productEntity2 = productRepository.findByCode(productEntity.getCode());
-		
-		if (productEntity2 !=null) {
-			return productRepository.save(productEntity);
+	public ResponseEntity<Object> updateProduct (ProductEntity productEntity) {
+		try {
+			ProductEntity productEntity2 = productRepository.findByCode(productEntity.getCode());
+			
+			if (productEntity2 != null) {
+				ProductEntity productEntity3 = productRepository.save(productEntity);
+				return new ResponseEntity<>(productEntity3, HttpStatus.OK);
+			}
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return null;
 	}
 	
-	public List<ProductEntity> findAllProducts () {
-		return productRepository.findAll();
+	public ResponseEntity<Object> findAllProducts () {
+		try {
+			List<ProductEntity> productEntities = productRepository.findAll();
+			return new ResponseEntity<>(productEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
+	
 }
