@@ -58,7 +58,6 @@ public class ItemService {
 	}
 	
 	public ResponseEntity<Object> findAllItems () {
-		
 		try {
 			List<ItemEntity> itemEntities = itemRepository.findAll();
 			return new ResponseEntity<>(itemEntities, HttpStatus.OK);
