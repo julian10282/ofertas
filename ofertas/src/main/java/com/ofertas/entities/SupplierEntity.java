@@ -30,8 +30,12 @@ public class SupplierEntity {
 
 	@Column(name = "modifyDate")
 	private Date modifyDate;
+	
+	@Column(name = "notificationurl")
+	private Date notificationUrl;
 
-	public SupplierEntity(int document, String name, String mail, String telephone, Date createDate, Date modifyDate) {
+	public SupplierEntity(int document, String name, String mail, String telephone, Date createDate, Date modifyDate,
+			Date notificationUrl) {
 		super();
 		this.document = document;
 		this.name = name;
@@ -39,6 +43,7 @@ public class SupplierEntity {
 		this.telephone = telephone;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
+		this.notificationUrl = notificationUrl;
 	}
 
 	public SupplierEntity() {
@@ -92,10 +97,19 @@ public class SupplierEntity {
 		this.modifyDate = modifyDate;
 	}
 
+	public Date getNotificationUrl() {
+		return notificationUrl;
+	}
+
+	public void setNotificationUrl(Date notificationUrl) {
+		this.notificationUrl = notificationUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "SupplierEntity [document=" + document + ", name=" + name + ", mail=" + mail + ", telephone=" + telephone
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", notificationUrl=" + notificationUrl
+				+ "]";
 	}
 
 }
