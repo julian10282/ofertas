@@ -33,9 +33,12 @@ public class SupplierEntity {
 	
 	@Column(name = "notificationurl")
 	private Date notificationUrl;
-
+	
+	@Column(name = "enabled")
+	private boolean enabled;
+	
 	public SupplierEntity(int document, String name, String mail, String telephone, Date createDate, Date modifyDate,
-			Date notificationUrl) {
+			Date notificationUrl, boolean enabled) {
 		super();
 		this.document = document;
 		this.name = name;
@@ -44,6 +47,7 @@ public class SupplierEntity {
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
 		this.notificationUrl = notificationUrl;
+		this.enabled = enabled;
 	}
 
 	public SupplierEntity() {
@@ -104,12 +108,20 @@ public class SupplierEntity {
 	public void setNotificationUrl(Date notificationUrl) {
 		this.notificationUrl = notificationUrl;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "SupplierEntity [document=" + document + ", name=" + name + ", mail=" + mail + ", telephone=" + telephone
 				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", notificationUrl=" + notificationUrl
-				+ "]";
+				+ ", enabled=" + enabled + "]";
 	}
 
 }

@@ -27,20 +27,25 @@ public class RequestEntity {
 	
 	@Column(name = "finaldate")
 	private Date finalDate;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	@Transient
 	private List<ItemEntity> itemEntities;
 
-	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, List<ItemEntity> itemEntities) {
+	public RequestEntity() {
+	}
+
+	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, boolean enabled,
+			List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
 		this.clientDocument = clientDocument;
 		this.startDate = startDate;
 		this.finalDate = finalDate;
+		this.enabled = enabled;
 		this.itemEntities = itemEntities;
-	}
-
-	public RequestEntity() {
 	}
 
 	public int getId() {
@@ -75,6 +80,14 @@ public class RequestEntity {
 		this.finalDate = finalDate;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public List<ItemEntity> getItemEntities() {
 		return itemEntities;
 	}
@@ -86,7 +99,7 @@ public class RequestEntity {
 	@Override
 	public String toString() {
 		return "RequestEntity [id=" + id + ", clientDocument=" + clientDocument + ", startDate=" + startDate
-				+ ", finalDate=" + finalDate + ", itemEntities=" + itemEntities + "]";
+				+ ", finalDate=" + finalDate + ", enabled=" + enabled + ", itemEntities=" + itemEntities + "]";
 	}
 
 }

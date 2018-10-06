@@ -14,28 +14,25 @@ public class ItemEntity {
 	@GeneratedValue
 	@Column(name = "id")
 	private int id;
-
 	@Column(name = "requestid")
 	private int requestId;
-
-	@Column(name = "productid")
-	private int productId;
-
 	@Column(name = "quantity")
 	private int quantity;
-	
 	@Column(name = "price")
 	private long price;
+	@Column(name = "enabled")
+	private boolean enabled;
 
-	public ItemEntity(int id, int requestId, int productId, int quantity) {
+	public ItemEntity() {
+	}
+
+	public ItemEntity(int id, int requestId, int quantity, long price, boolean enabled) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
-		this.productId = productId;
 		this.quantity = quantity;
-	}
-
-	public ItemEntity() {
+		this.price = price;
+		this.enabled = enabled;
 	}
 
 	public int getId() {
@@ -54,14 +51,6 @@ public class ItemEntity {
 		this.requestId = requestId;
 	}
 
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -70,10 +59,26 @@ public class ItemEntity {
 		this.quantity = quantity;
 	}
 
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
-		return "ItemEntity [id=" + id + ", requestId=" + requestId + ", productId=" + productId + ", quantity="
-				+ quantity + "]";
+		return "ItemEntity [id=" + id + ", requestId=" + requestId + ", quantity=" + quantity + ", price=" + price
+				+ ", enabled=" + enabled + "]";
 	}
 
 }

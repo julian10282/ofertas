@@ -32,9 +32,12 @@ public class ClientEntity {
 
 	@Column(name = "modifyDate")
 	private Date modifyDate;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	public ClientEntity(int document, String name, String lastname, String mail, String telephone, Date createDate,
-			Date modifyDate) {
+			Date modifyDate, boolean enabled) {
 		super();
 		this.document = document;
 		this.name = name;
@@ -43,6 +46,7 @@ public class ClientEntity {
 		this.telephone = telephone;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
+		this.enabled = enabled;
 	}
 
 	public ClientEntity() {
@@ -103,11 +107,20 @@ public class ClientEntity {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "ClientEntity [document=" + document + ", name=" + name + ", lastname=" + lastname + ", mail=" + mail
-				+ ", telephone=" + telephone + ", createDate=" + createDate + ", modifyDate=" + modifyDate + "]";
+				+ ", telephone=" + telephone + ", createDate=" + createDate + ", modifyDate=" + modifyDate
+				+ ", enabled=" + enabled + "]";
 	}
 
 }

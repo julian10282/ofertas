@@ -26,17 +26,21 @@ public class CatalogEntity {
 
 	@Column(name = "description")
 	private String description;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
 
 	@Transient
 	private List<ProductEntity> productEntities;
 
-	public CatalogEntity(int code, int supplierDocument, String name, String description,
+	public CatalogEntity(int code, int supplierDocument, String name, String description, boolean enabled,
 			List<ProductEntity> productEntities) {
 		super();
 		this.code = code;
 		this.supplierDocument = supplierDocument;
 		this.name = name;
 		this.description = description;
+		this.enabled = enabled;
 		this.productEntities = productEntities;
 	}
 
@@ -82,11 +86,20 @@ public class CatalogEntity {
 	public void setProductEntities(List<ProductEntity> productEntities) {
 		this.productEntities = productEntities;
 	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 
 	@Override
 	public String toString() {
 		return "CatalogEntity [code=" + code + ", supplierDocument=" + supplierDocument + ", name=" + name
-				+ ", description=" + description + ", productEntities=" + productEntities + "]";
+				+ ", description=" + description + ", enabled=" + enabled + ", productEntities=" + productEntities
+				+ "]";
 	}
 
 }

@@ -23,15 +23,24 @@ public class OfferEntity {
 
 	@Column(name = "total")
 	private float total;
+	
+	@Column(name = "enabled")
+	private boolean enabled;
+	
+	@Column(name = "supplierdocument")
+	private int supplierDocument;
 
 	@Transient
 	private List<ItemEntity> itemEntities;
-
-	public OfferEntity(int id, int requestId, float total, List<ItemEntity> itemEntities) {
+	
+	public OfferEntity(int id, int requestId, float total, boolean enabled, int supplierDocument,
+			List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
 		this.total = total;
+		this.enabled = enabled;
+		this.supplierDocument = supplierDocument;
 		this.itemEntities = itemEntities;
 	}
 
@@ -70,10 +79,26 @@ public class OfferEntity {
 		this.itemEntities = itemEntities;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public int getSupplierDocument() {
+		return supplierDocument;
+	}
+
+	public void setSupplierDocument(int supplierDocument) {
+		this.supplierDocument = supplierDocument;
+	}
+
 	@Override
 	public String toString() {
-		return "OfferEntity [id=" + id + ", requestId=" + requestId + ", total=" + total + ", itemEntities="
-				+ itemEntities + "]";
+		return "OfferEntity [id=" + id + ", requestId=" + requestId + ", total=" + total + ", enabled=" + enabled
+				+ ", supplierDocument=" + supplierDocument + ", itemEntities=" + itemEntities + "]";
 	}
 
 }
