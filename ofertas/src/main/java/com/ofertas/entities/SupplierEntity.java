@@ -31,11 +31,11 @@ public class SupplierEntity {
 	@Column(name = "modifyDate")
 	private Date modifyDate;
 	
-	@Column(name = "notificationurl")
-	private Date notificationUrl;
-	
 	@Column(name = "enabled")
 	private boolean enabled;
+	
+	@Column(name = "notificationurl")
+	private Date notificationUrl;
 	
 	public SupplierEntity(int document, String name, String mail, String telephone, Date createDate, Date modifyDate,
 			Date notificationUrl, boolean enabled) {
