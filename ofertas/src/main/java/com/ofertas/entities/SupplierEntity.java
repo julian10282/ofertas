@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "supplier")
 public class SupplierEntity {
@@ -25,9 +27,11 @@ public class SupplierEntity {
 	@Column(name = "telephone")
 	private String telephone;
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "createDate")
 	private Date createDate;
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "modifyDate")
 	private Date modifyDate;
 	
@@ -35,10 +39,10 @@ public class SupplierEntity {
 	private boolean enabled;
 	
 	@Column(name = "notificationurl")
-	private Date notificationUrl;
-	
+	private String notificationUrl;
+
 	public SupplierEntity(int document, String name, String mail, String telephone, Date createDate, Date modifyDate,
-			Date notificationUrl, boolean enabled) {
+			boolean enabled, String notificationUrl) {
 		super();
 		this.document = document;
 		this.name = name;
@@ -46,8 +50,8 @@ public class SupplierEntity {
 		this.telephone = telephone;
 		this.createDate = createDate;
 		this.modifyDate = modifyDate;
-		this.notificationUrl = notificationUrl;
 		this.enabled = enabled;
+		this.notificationUrl = notificationUrl;
 	}
 
 	public SupplierEntity() {
@@ -101,14 +105,6 @@ public class SupplierEntity {
 		this.modifyDate = modifyDate;
 	}
 
-	public Date getNotificationUrl() {
-		return notificationUrl;
-	}
-
-	public void setNotificationUrl(Date notificationUrl) {
-		this.notificationUrl = notificationUrl;
-	}
-	
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -117,11 +113,19 @@ public class SupplierEntity {
 		this.enabled = enabled;
 	}
 
+	public String getNotificationUrl() {
+		return notificationUrl;
+	}
+
+	public void setNotificationUrl(String notificationUrl) {
+		this.notificationUrl = notificationUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "SupplierEntity [document=" + document + ", name=" + name + ", mail=" + mail + ", telephone=" + telephone
-				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", notificationUrl=" + notificationUrl
-				+ ", enabled=" + enabled + "]";
+				+ ", createDate=" + createDate + ", modifyDate=" + modifyDate + ", enabled=" + enabled
+				+ ", notificationUrl=" + notificationUrl + "]";
 	}
 
 }

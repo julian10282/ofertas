@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "client")
 public class ClientEntity {
@@ -27,9 +29,11 @@ public class ClientEntity {
 	@Column(name = "telephone")
 	private String telephone;
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "createDate")
 	private Date createDate;
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "modifyDate")
 	private Date modifyDate;
 	

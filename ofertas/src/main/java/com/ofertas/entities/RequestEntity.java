@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "request")
 public class RequestEntity {
@@ -22,9 +24,11 @@ public class RequestEntity {
 	@Column(name = "clientdocument")
 	private int clientDocument;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "startdate")
 	private Date startDate;
 	
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "finaldate")
 	private Date finalDate;
 	
