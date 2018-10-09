@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ofertas.entities.RequestEntity;
+import com.ofertas.integration.RestProxy;
 import com.ofertas.repository.RequestRepository;
-import com.ofertas.util.RestProxy;
 
 @Service("requestService")
 public class RequestService {
@@ -18,6 +21,10 @@ public class RequestService {
 	@Autowired
 	@Qualifier("requestRepository")
 	private RequestRepository requestRepository;
+	
+	@Autowired
+	@Qualifier("restProxy")
+	private RestProxy restProxy;
 	
 	public ResponseEntity<Object> createRequest (RequestEntity requestEntity) {
 		try {
@@ -67,17 +74,24 @@ public class RequestService {
 		}
 	}
 
-	public void sendRequestToSupplier(Object body) {
+	public String sendRequestToSupplier(Object body) {
 		try {
 			
 			RequestEntity requestEntity = (RequestEntity) body;
 			
-			RestProxy restProxy = new RestProxy();
+			StringBuilder url = new StringBuilder("http://localhost/").append("prueba");
 			
-//			restProxy.sendRequest(RequestMethod.POST, urlBase, null, null, null, body)
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+			String json = gson.toJson(requestEntity);
 			
+			ResponseEntity<Object> response = restProxy.sendRequest(RequestMethod.POST, url.toString(), null, null, null, json);
+			
+			RequestEntity result = gson.fromJson(response.getBody().toString(), RequestEntity.class);
+			return null;
 		} catch (Exception e) {
+			return null;
 		}
 		
 	}
+	
 }

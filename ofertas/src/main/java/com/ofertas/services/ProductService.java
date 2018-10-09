@@ -66,7 +66,7 @@ public class ProductService {
 		}
 	}
 
-	public ResponseEntity<Object> findByCatalogDocument(int id) {
+	public ResponseEntity<Object> findByCatalogCode(int id) {
 		try {
 			List<ProductEntity> productEntities = productRepository.findByCatalogCode(id);
 			return new ResponseEntity<>(productEntities, HttpStatus.OK);

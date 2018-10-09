@@ -1,4 +1,4 @@
-package com.ofertas.util;
+package com.ofertas.integration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Component
+@Component("restProxy")
 public class RestProxy {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestProxy.class);

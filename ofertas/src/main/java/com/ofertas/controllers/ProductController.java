@@ -61,9 +61,9 @@ public class ProductController {
 		return responseEntity;
 	}
 	
-	@GetMapping("/findByCatalogDocument")
+	@GetMapping("/findByCatalogCode")
 	public ResponseEntity<Object> findByCatalogDocument(@RequestParam int id) {
-		ResponseEntity<Object> responseEntity = productService.findByCatalogDocument(id);
+		ResponseEntity<Object> responseEntity = productService.findByCatalogCode(id);
 		
 		if (responseEntity.hasBody()) {
 			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
