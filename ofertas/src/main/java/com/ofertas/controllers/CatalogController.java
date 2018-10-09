@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ofertas.entities.CatalogEntity;
@@ -53,6 +54,16 @@ public class CatalogController {
 	@GetMapping("/findAll")
 	public ResponseEntity<Object> findAll() {
 		ResponseEntity<Object> responseEntity = catalogService.findAllCatalogs();
+		
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
+		}
+		return responseEntity;
+	}
+	
+	@GetMapping("/findById")
+	public ResponseEntity<Object> findById(@RequestParam int id) {
+		ResponseEntity<Object> responseEntity = catalogService.findById(id);
 		
 		if (responseEntity.hasBody()) {
 			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);

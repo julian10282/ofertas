@@ -29,18 +29,26 @@ public class OfferEntity {
 	
 	@Column(name = "supplierdocument")
 	private int supplierDocument;
+	
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "description")
+	private String description;
 
 	@Transient
 	private List<ItemEntity> itemEntities;
-	
-	public OfferEntity(int id, int requestId, float total, boolean enabled, int supplierDocument,
-			List<ItemEntity> itemEntities) {
+
+	public OfferEntity(int id, int requestId, float total, boolean enabled, int supplierDocument, String name,
+			String description, List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
 		this.total = total;
 		this.enabled = enabled;
 		this.supplierDocument = supplierDocument;
+		this.name = name;
+		this.description = description;
 		this.itemEntities = itemEntities;
 	}
 
@@ -71,14 +79,6 @@ public class OfferEntity {
 		this.total = total;
 	}
 
-	public List<ItemEntity> getItemEntities() {
-		return itemEntities;
-	}
-
-	public void setItemEntities(List<ItemEntity> itemEntities) {
-		this.itemEntities = itemEntities;
-	}
-
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -95,10 +95,35 @@ public class OfferEntity {
 		this.supplierDocument = supplierDocument;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<ItemEntity> getItemEntities() {
+		return itemEntities;
+	}
+
+	public void setItemEntities(List<ItemEntity> itemEntities) {
+		this.itemEntities = itemEntities;
+	}
+
 	@Override
 	public String toString() {
 		return "OfferEntity [id=" + id + ", requestId=" + requestId + ", total=" + total + ", enabled=" + enabled
-				+ ", supplierDocument=" + supplierDocument + ", itemEntities=" + itemEntities + "]";
+				+ ", supplierDocument=" + supplierDocument + ", name=" + name + ", description=" + description
+				+ ", itemEntities=" + itemEntities + "]";
 	}
 
 }

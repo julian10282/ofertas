@@ -2,8 +2,6 @@ package com.ofertas.services;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -64,6 +62,15 @@ public class CatalogService {
 		try {
 			List<CatalogEntity> catalogEntities = catalogRepository.findAll();
 			return new ResponseEntity<>(catalogEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	public ResponseEntity<Object> findById(int id) {
+		try {
+			CatalogEntity catalogEntity = catalogRepository.findByCode(id);
+			return new ResponseEntity<>(catalogEntity, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

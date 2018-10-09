@@ -34,22 +34,30 @@ public class RequestEntity {
 	
 	@Column(name = "enabled")
 	private boolean enabled;
+	
+	@Column(name = "name")
+	private String name;
+
+	@Column(name = "description")
+	private String description;
 
 	@Transient
 	private List<ItemEntity> itemEntities;
 
-	public RequestEntity() {
-	}
-
-	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, boolean enabled,
-			List<ItemEntity> itemEntities) {
+	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, boolean enabled, String name,
+			String description, List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
 		this.clientDocument = clientDocument;
 		this.startDate = startDate;
 		this.finalDate = finalDate;
 		this.enabled = enabled;
+		this.name = name;
+		this.description = description;
 		this.itemEntities = itemEntities;
+	}
+
+	public RequestEntity() {
 	}
 
 	public int getId() {
@@ -92,6 +100,22 @@ public class RequestEntity {
 		this.enabled = enabled;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public List<ItemEntity> getItemEntities() {
 		return itemEntities;
 	}
@@ -103,7 +127,8 @@ public class RequestEntity {
 	@Override
 	public String toString() {
 		return "RequestEntity [id=" + id + ", clientDocument=" + clientDocument + ", startDate=" + startDate
-				+ ", finalDate=" + finalDate + ", enabled=" + enabled + ", itemEntities=" + itemEntities + "]";
+				+ ", finalDate=" + finalDate + ", enabled=" + enabled + ", name=" + name + ", description="
+				+ description + ", itemEntities=" + itemEntities + "]";
 	}
 
 }

@@ -65,5 +65,14 @@ public class ProductService {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	public ResponseEntity<Object> findByCatalogDocument(int id) {
+		try {
+			List<ProductEntity> productEntities = productRepository.findByCatalogCode(id);
+			return new ResponseEntity<>(productEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 }

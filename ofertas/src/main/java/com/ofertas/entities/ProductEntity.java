@@ -7,14 +7,15 @@ import javax.persistence.*;
 public class ProductEntity {
 
     @Id
+    @GeneratedValue
     @Column(name = "code")
     private int code;
     @Column(name = "name")
     private String name;
     @Column(name = "description")
     private String description;
-    @Column(name = "catalogCod")
-    private int catalogCod;
+    @Column(name = "catalogcode")
+    private int catalogCode;
     @Column(name = "enabled")
 	private boolean enabled;
     @Column(name = "itemid")
@@ -25,12 +26,12 @@ public class ProductEntity {
     }
 
 
-	public ProductEntity(int code, String name, String description, int catalogCod, boolean enabled, int itemId) {
+	public ProductEntity(int code, String name, String description, int catalogCode, boolean enabled, int itemId) {
 		super();
 		this.code = code;
 		this.name = name;
 		this.description = description;
-		this.catalogCod = catalogCod;
+		this.catalogCode = catalogCode;
 		this.enabled = enabled;
 		this.itemId = itemId;
 	}
@@ -66,13 +67,13 @@ public class ProductEntity {
 	}
 
 
-	public int getCatalogCod() {
-		return catalogCod;
+	public int getCatalogCode() {
+		return catalogCode;
 	}
 
 
-	public void setCatalogCod(int catalogCod) {
-		this.catalogCod = catalogCod;
+	public void setCatalogCode(int catalogCode) {
+		this.catalogCode = catalogCode;
 	}
 
 
@@ -98,8 +99,8 @@ public class ProductEntity {
 
 	@Override
 	public String toString() {
-		return "ProductEntity [code=" + code + ", name=" + name + ", description=" + description + ", catalogCod="
-				+ catalogCod + ", enabled=" + enabled + ", itemId=" + itemId + "]";
+		return "ProductEntity [code=" + code + ", name=" + name + ", description=" + description + ", catalogCode="
+				+ catalogCode + ", enabled=" + enabled + ", itemId=" + itemId + "]";
 	}
 
 }

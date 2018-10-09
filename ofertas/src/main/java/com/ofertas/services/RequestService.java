@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ofertas.entities.RequestEntity;
 import com.ofertas.repository.RequestRepository;
+import com.ofertas.util.RestProxy;
 
 @Service("requestService")
 public class RequestService {
@@ -64,5 +65,19 @@ public class RequestService {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+	}
+
+	public void sendRequestToSupplier(Object body) {
+		try {
+			
+			RequestEntity requestEntity = (RequestEntity) body;
+			
+			RestProxy restProxy = new RestProxy();
+			
+//			restProxy.sendRequest(RequestMethod.POST, urlBase, null, null, null, body)
+			
+		} catch (Exception e) {
+		}
+		
 	}
 }
