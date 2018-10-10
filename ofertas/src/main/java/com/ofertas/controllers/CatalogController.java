@@ -70,5 +70,15 @@ public class CatalogController {
 		}
 		return responseEntity;
 	}
+	
+	@GetMapping("findBySupplierDocument")
+	public ResponseEntity<Object> findBySupllerDocument(@RequestParam int document){
+		ResponseEntity<Object> responseEntity = catalogService.findBySupplierDocument(document);
+		
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
+		}
+		return responseEntity;
+	}
 
 }

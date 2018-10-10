@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Component("restProxy")
+@Component("restIntegrationProxy")
 public class RestProxy {
 	
 	private static final Logger logger = LoggerFactory.getLogger(RestProxy.class);

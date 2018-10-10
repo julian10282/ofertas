@@ -23,7 +23,7 @@ public class RequestService {
 	private RequestRepository requestRepository;
 	
 	@Autowired
-	@Qualifier("restProxy")
+	@Qualifier("restIntegrationProxy")
 	private RestProxy restProxy;
 	
 	public ResponseEntity<Object> createRequest (RequestEntity requestEntity) {

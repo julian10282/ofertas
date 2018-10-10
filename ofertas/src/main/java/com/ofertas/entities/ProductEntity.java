@@ -10,14 +10,19 @@ public class ProductEntity {
     @GeneratedValue
     @Column(name = "code")
     private int code;
+    
     @Column(name = "name")
     private String name;
+    
     @Column(name = "description")
     private String description;
+    
     @Column(name = "catalogcode")
     private int catalogCode;
+    
     @Column(name = "enabled")
 	private boolean enabled;
+    
     @Column(name = "itemid")
 	private int itemId;
 
