@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,16 @@ public class ProductController {
 	@GetMapping("/findByCatalogCode")
 	public ResponseEntity<Object> findByCatalogDocument(@RequestParam int id) {
 		ResponseEntity<Object> responseEntity = productService.findByCatalogCode(id);
+		
+		if (responseEntity.hasBody()) {
+			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
+		}
+		return responseEntity;
+	}
+	
+	@GetMapping("/findByCode/{code}")
+	public ResponseEntity<Object> findByCode(@PathVariable int code) {
+		ResponseEntity<Object> responseEntity = productService.findByCode(code);
 		
 		if (responseEntity.hasBody()) {
 			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);

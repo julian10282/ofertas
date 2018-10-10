@@ -74,5 +74,14 @@ public class ProductService {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	public ResponseEntity<Object> findByCode(int code) {
+		try {
+			ProductEntity productEntity = productRepository.findByCode(code);
+			return new ResponseEntity<>(productEntity, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 }
