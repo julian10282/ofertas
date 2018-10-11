@@ -14,4 +14,5 @@ public interface CatalogRepository extends JpaRepository<CatalogEntity, Serializ
 	public CatalogEntity findByCode(int document);
 	
 	public List<CatalogEntity> findBySupplierDocument(int document);
+
 }

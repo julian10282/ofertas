@@ -1,7 +1,11 @@
 package com.ofertas.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -25,6 +29,10 @@ public class RequestService {
 	@Autowired
 	@Qualifier("restIntegrationProxy")
 	private RestProxy restProxy;
+	
+	private static final Log LOG = LogFactory.getLog(RequestEntity.class);
+	
+	private static final String URL = "http://localhost:8080/proveedor/cotizacion/recibir";
 	
 	public ResponseEntity<Object> createRequest (RequestEntity requestEntity) {
 		try {
@@ -74,22 +82,22 @@ public class RequestService {
 		}
 	}
 
-	public String sendRequestToSupplier(Object body) {
+	public void sendRequestToSupplier(Object body) {
 		try {
 			
 			RequestEntity requestEntity = (RequestEntity) body;
 			
-			StringBuilder url = new StringBuilder("http://localhost/").append("prueba");
-			
-			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").create();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
 			String json = gson.toJson(requestEntity);
 			
-			ResponseEntity<Object> response = restProxy.sendRequest(RequestMethod.POST, url.toString(), null, null, null, json);
+			Map<String, String> headers = new HashMap<>();
+			headers.put("Content-Type", "application/json");
 			
-			RequestEntity result = gson.fromJson(response.getBody().toString(), RequestEntity.class);
-			return null;
+			ResponseEntity<Object> response = restProxy.sendRequest(RequestMethod.POST, URL, null, null, headers, json);
+			
+			LOG.info("Fin de envio de la oferta ='" + response.getBody().toString()+"'");
+			
 		} catch (Exception e) {
-			return null;
 		}
 		
 	}

@@ -25,10 +25,8 @@ public class RequestController {
 	public ResponseEntity<Object> create(@RequestBody RequestEntity requestEntity) {
 		ResponseEntity<Object> responseEntity = requestService.createRequest(requestEntity);
 		if (responseEntity.hasBody()) {
-			
-//			--
+
 			requestService.sendRequestToSupplier(responseEntity.getBody());
-			
 			
 			return new ResponseEntity<>(responseEntity.getBody(), HttpStatus.OK);
 		}
