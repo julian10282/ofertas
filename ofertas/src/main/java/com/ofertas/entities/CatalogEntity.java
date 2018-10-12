@@ -19,7 +19,7 @@ public class CatalogEntity {
 	private int code;
 
 	@Column(name = "supplierdocument")
-	private int supplierDocument;
+	private String supplierDocument;
 
 	@Column(name = "name")
 	private String name;
@@ -33,7 +33,7 @@ public class CatalogEntity {
 	@Transient
 	private List<ProductEntity> productEntities;
 
-	public CatalogEntity(int code, int supplierDocument, String name, String description, boolean enabled,
+	public CatalogEntity(int code, String supplierDocument, String name, String description, boolean enabled,
 			List<ProductEntity> productEntities) {
 		super();
 		this.code = code;
@@ -55,11 +55,11 @@ public class CatalogEntity {
 		this.code = code;
 	}
 
-	public int getSupplierDocument() {
+	public String getSupplierDocument() {
 		return supplierDocument;
 	}
 
-	public void setSupplierDocument(int supplierDocument) {
+	public void setSupplierDocument(String supplierDocument) {
 		this.supplierDocument = supplierDocument;
 	}
 
@@ -79,20 +79,20 @@ public class CatalogEntity {
 		this.description = description;
 	}
 
-	public List<ProductEntity> getProductEntities() {
-		return productEntities;
-	}
-
-	public void setProductEntities(List<ProductEntity> productEntities) {
-		this.productEntities = productEntities;
-	}
-	
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+
+	public List<ProductEntity> getProductEntities() {
+		return productEntities;
+	}
+
+	public void setProductEntities(List<ProductEntity> productEntities) {
+		this.productEntities = productEntities;
 	}
 
 	@Override

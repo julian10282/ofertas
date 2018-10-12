@@ -76,9 +76,9 @@ public class CatalogService {
 		}
 	}
 
-	public ResponseEntity<Object> findBySupplierDocument(int document) {
+	public ResponseEntity<Object> findBySupplierDocument(String document) {
 		try {
-			List<CatalogEntity> catalogEntities = catalogRepository.findBySupplierDocument(document);
+			List<CatalogEntity> catalogEntities = catalogRepository.findBySupplierDocument(Integer.parseInt(document));
 			return new ResponseEntity<Object>(catalogEntities, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
