@@ -102,4 +102,13 @@ public class RequestService {
 		
 	}
 	
+	public ResponseEntity<Object> findByClientDocument(int document){
+		try {
+			List<RequestEntity> requestEntities = requestRepository.findByClientDocument(document);
+			return new ResponseEntity<>(requestEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 }

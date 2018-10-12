@@ -65,4 +65,13 @@ public class OfferService {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	public ResponseEntity<Object> findOfferByRequestId (int requestId) {
+		try {
+			List<OfferEntity> offers = offertRepository.findByRequestId(requestId);
+			return new ResponseEntity<>(offers, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }
