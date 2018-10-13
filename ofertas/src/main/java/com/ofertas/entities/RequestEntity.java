@@ -22,7 +22,7 @@ public class RequestEntity {
 	private int id;
 
 	@Column(name = "clientdocument")
-	private int clientDocument;
+	private String clientDocument;
 	
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="America/Bogota")
 	@Column(name = "startdate")
@@ -44,7 +44,7 @@ public class RequestEntity {
 	@Transient
 	private List<ItemEntity> itemEntities;
 
-	public RequestEntity(int id, int clientDocument, Date startDate, Date finalDate, boolean enabled, String name,
+	public RequestEntity(int id, String clientDocument, Date startDate, Date finalDate, boolean enabled, String name,
 			String description, List<ItemEntity> itemEntities) {
 		super();
 		this.id = id;
@@ -68,11 +68,11 @@ public class RequestEntity {
 		this.id = id;
 	}
 
-	public int getClientDocument() {
+	public String getClientDocument() {
 		return clientDocument;
 	}
 
-	public void setClientDocument(int clientDocument) {
+	public void setClientDocument(String clientDocument) {
 		this.clientDocument = clientDocument;
 	}
 
