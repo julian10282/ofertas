@@ -65,5 +65,14 @@ public class ItemService {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	public ResponseEntity<Object> findByRequestId (int requestId) {
+		try {
+			List<ItemEntity> itemEntities = itemRepository.findByRequestId(requestId);
+			return new ResponseEntity<>(itemEntities, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }
