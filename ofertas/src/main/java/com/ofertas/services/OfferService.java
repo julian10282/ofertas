@@ -35,6 +35,7 @@ public class OfferService {
 				List<ItemEntity> itemEntities = new ArrayList<>();
 				
 				for (ItemEntity itemEntity : offerEntity.getItemEntities()) {
+					itemEntity.setOfferId(offerEntity2.getId());
 					ItemEntity itemEntity2 = itemRepository.save(itemEntity);
 					itemEntities.add(itemEntity2);
 				}
@@ -88,6 +89,12 @@ public class OfferService {
 	public ResponseEntity<Object> findOfferByRequestId (int requestId) {
 		try {
 			List<OfferEntity> offers = offertRepository.findByRequestId(requestId);
+			
+			for (OfferEntity offerEntity : offers) {
+				List<ItemEntity> itemEntities = itemRepository.findByOfferId(offerEntity.getId());
+				offerEntity.setItemEntities(itemEntities);
+			}
+			
 			return new ResponseEntity<>(offers, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

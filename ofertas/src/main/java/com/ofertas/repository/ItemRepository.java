@@ -13,4 +13,6 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Serializable> 
 	public ItemEntity findById(int id);
 	
 	public List<ItemEntity> findByRequestId(int requestid);
+
+	public List<ItemEntity> findByOfferId(int id);
 }

@@ -16,6 +16,8 @@ public class ItemEntity {
 	private int id;
 	@Column(name = "requestid")
 	private int requestId;
+	@Column(name = "offerid")
+	private int offerId;
 	@Column(name = "quantity")
 	private int quantity;
 	@Column(name = "price")
@@ -25,10 +27,19 @@ public class ItemEntity {
 	@Column(name = "product_id")
 	private int productId;
 
-	public ItemEntity(int id, int requestId, int quantity, long price, boolean enabled, int productId) {
+	public int getOfferId() {
+		return offerId;
+	}
+
+	public void setOfferId(int offerId) {
+		this.offerId = offerId;
+	}
+
+	public ItemEntity(int id, int requestId, int offerId, int quantity, long price, boolean enabled, int productId) {
 		super();
 		this.id = id;
 		this.requestId = requestId;
+		this.offerId = offerId;
 		this.quantity = quantity;
 		this.price = price;
 		this.enabled = enabled;
@@ -88,8 +99,8 @@ public class ItemEntity {
 
 	@Override
 	public String toString() {
-		return "ItemEntity [id=" + id + ", requestId=" + requestId + ", quantity=" + quantity + ", price=" + price
-				+ ", enabled=" + enabled + ", productId=" + productId + "]";
+		return "ItemEntity [id=" + id + ", requestId=" + requestId + ", offerId=" + offerId + ", quantity=" + quantity
+				+ ", price=" + price + ", enabled=" + enabled + ", productId=" + productId + "]";
 	}
 
 }
