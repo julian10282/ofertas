@@ -62,9 +62,11 @@ public class RequestService {
 					
 					if (itemEntity2 != null) {
 						itemEntities.add(itemEntity2);
+						LOG.info("Item saved Item="+itemEntity2.toString());
 					}
 				}
 				requestEntity2.setItemEntities(itemEntities);
+				LOG.info("Request saved Resquets="+requestEntity2.toString());
 			}
 			
 			
