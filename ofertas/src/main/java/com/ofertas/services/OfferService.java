@@ -1,5 +1,6 @@
 package com.ofertas.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ofertas.entities.ItemEntity;
 import com.ofertas.entities.OfferEntity;
+import com.ofertas.repository.ItemRepository;
 import com.ofertas.repository.OffertRepository;
 
 @Service("offerService")
@@ -17,11 +20,27 @@ public class OfferService {
 	@Autowired
 	@Qualifier("offerRepository")
 	private OffertRepository offertRepository;
+	
+	@Autowired
+	@Qualifier("itemRepository")
+	private ItemRepository itemRepository;
 
 	public ResponseEntity<Object> createOffer (OfferEntity offerEntity) {
 		try {
 			offerEntity.setId(0);
 			OfferEntity offerEntity2 = offertRepository.save(offerEntity);
+			
+			if (offerEntity.getItemEntities() != null) {
+				
+				List<ItemEntity> itemEntities = new ArrayList<>();
+				
+				for (ItemEntity itemEntity : offerEntity.getItemEntities()) {
+					ItemEntity itemEntity2 = itemRepository.save(itemEntity);
+					itemEntities.add(itemEntity2);
+				}
+				
+				offerEntity2.setItemEntities(itemEntities);
+			}
 
 			return new ResponseEntity<>(offerEntity2, HttpStatus.OK);
 			

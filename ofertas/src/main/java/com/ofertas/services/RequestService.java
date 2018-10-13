@@ -1,6 +1,7 @@
 package com.ofertas.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.ofertas.entities.ItemEntity;
 import com.ofertas.entities.RequestEntity;
 import com.ofertas.integration.RestProxy;
@@ -45,6 +47,8 @@ public class RequestService {
 	public ResponseEntity<Object> createRequest (RequestEntity requestEntity) {
 		try {
 			requestEntity.setId(0);
+			requestEntity.setStartDate(new Date());
+			requestEntity.setFinalDate(new Date());
 			RequestEntity requestEntity2 = requestRepository.save(requestEntity);
 			
 			if (requestEntity.getItemEntities() != null) {
