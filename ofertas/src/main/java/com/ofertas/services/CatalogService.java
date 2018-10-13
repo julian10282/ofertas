@@ -76,7 +76,7 @@ public class CatalogService {
 		}
 	}
 
-	public ResponseEntity<Object> findBySupplierDocument(int document) {
+	public ResponseEntity<Object> findBySupplierDocument(String document) {
 		try {
 			List<CatalogEntity> catalogEntities = catalogRepository.findBySupplierDocument(document);
 			return new ResponseEntity<Object>(catalogEntities, HttpStatus.OK);

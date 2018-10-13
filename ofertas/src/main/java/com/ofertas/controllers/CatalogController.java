@@ -72,7 +72,7 @@ public class CatalogController {
 	}
 	
 	@GetMapping("findBySupplierDocument")
-	public ResponseEntity<Object> findBySupllerDocument(@RequestParam int document){
+	public ResponseEntity<Object> findBySupllerDocument(@RequestParam String document){
 		ResponseEntity<Object> responseEntity = catalogService.findBySupplierDocument(document);
 		
 		if (responseEntity.hasBody()) {

@@ -1,5 +1,6 @@
 package com.ofertas.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.ofertas.entities.ItemEntity;
 import com.ofertas.entities.RequestEntity;
 import com.ofertas.integration.RestProxy;
+import com.ofertas.repository.ItemRepository;
 import com.ofertas.repository.RequestRepository;
 
 @Service("requestService")
@@ -25,6 +29,10 @@ public class RequestService {
 	@Autowired
 	@Qualifier("requestRepository")
 	private RequestRepository requestRepository;
+	
+	@Autowired
+	@Qualifier("itemRepository")
+	private ItemRepository itemRepository;
 	
 	@Autowired
 	@Qualifier("restIntegrationProxy")
@@ -38,7 +46,24 @@ public class RequestService {
 		try {
 			requestEntity.setId(0);
 			RequestEntity requestEntity2 = requestRepository.save(requestEntity);
-
+			
+			if (requestEntity.getItemEntities() != null) {
+				
+				List<ItemEntity> itemEntities = new ArrayList<>();
+				
+				for (ItemEntity itemEntity: requestEntity.getItemEntities()) {
+					itemEntity.setRequestId(requestEntity2.getId());
+					
+					ItemEntity itemEntity2 = itemRepository.save(itemEntity);
+					
+					if (itemEntity2 != null) {
+						itemEntities.add(itemEntity2);
+					}
+				}
+				requestEntity2.setItemEntities(itemEntities);
+			}
+			
+			
 			return new ResponseEntity<>(requestEntity2, HttpStatus.OK);
 			
 		} catch (Exception e) {
@@ -98,11 +123,12 @@ public class RequestService {
 			LOG.info("Fin de envio de la oferta ='" + response.getBody().toString()+"'");
 			
 		} catch (Exception e) {
+			LOG.info("Error enviando solicitud al proveedor!! ERROR="+ e.getMessage());
 		}
 		
 	}
 	
-	public ResponseEntity<Object> findByClientDocument(int document){
+	public ResponseEntity<Object> findByClientDocument(String document){
 		try {
 			List<RequestEntity> requestEntities = requestRepository.findByClientDocument(document);
 			return new ResponseEntity<>(requestEntities, HttpStatus.OK);

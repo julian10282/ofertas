@@ -65,7 +65,7 @@ public class RequestController {
 	}
 	
 	@GetMapping("findByClientDocument")
-	public ResponseEntity<Object> findByClientDocument(@RequestParam int document){
+	public ResponseEntity<Object> findByClientDocument(@RequestParam String document){
 		ResponseEntity<Object> responseEntity = requestService.findByClientDocument(document);
 		
 		if (responseEntity.hasBody()) {

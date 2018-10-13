@@ -12,5 +12,5 @@ public interface RequestRepository extends JpaRepository<RequestEntity, Serializ
 	
 	public RequestEntity findById(int id);
 	
-	public List<RequestEntity> findByClientDocument(int document);
+	public List<RequestEntity> findByClientDocument(String document);
 }
